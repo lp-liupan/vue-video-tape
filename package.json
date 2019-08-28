@@ -5,7 +5,7 @@
   "author": "liupan",
   "license": "MIT",
   "private": false,
-  "main":"dist/vue-video-tape.js",
+  "main": "dist/vue-video-tape.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
