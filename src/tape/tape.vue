@@ -14,7 +14,7 @@ import { videoPlayer } from 'vue-video-player';
 import RecordRTC from 'recordrtc';
 
 export default {
-    name:'VideoType',
+    name:'tape',
     props:{
         //视频配置
         playerOptions:{
