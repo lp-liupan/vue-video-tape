@@ -6,13 +6,55 @@
 
 ``` bash
 # install dependencies
-npm install
+npm install vue-video-tape
 
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
 ```
 
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
+```html
+<template>
+    <div>
+        <VueVideoTape :playerOptions='options' ref="videotape"></VueVideoTape>
+    </div>
+</template>
+<script>
+import VueVideoTape from 'vue-video-tape'
+
+export default {
+    data(){
+        return{
+            options:{
+				width:600,
+				sources:[
+					{
+						src:'http://.........'
+					}
+				]
+			}
+        }
+    },
+    methods:{
+
+		
+		image(){
+			//截图事件，返回图片base64
+			let image = this.$refs.videotape.screenshot();
+		},
+
+		start(){
+			//开始录制
+			this.$refs.videotape.startCapture();
+		},
+
+		stop(){
+			//结束录制，返回视频文件
+			let video = this.$refs.videotape.stopCapture();
+		}
+
+    },
+    components:{
+        VueVideoTape
+    }
+}
+</script>
+
+```
