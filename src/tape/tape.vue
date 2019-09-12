@@ -9,8 +9,10 @@
     </div>
 </template>
 <script>
-import 'video.js/dist/video-js.css';
 import { videoPlayer } from 'vue-video-player';
+import 'videojs-contrib-hls'
+require('video.js/dist/video-js.css')
+require('vue-video-player/src/custom-theme.css')
 import RecordRTC from 'recordrtc';
 
 export default {
