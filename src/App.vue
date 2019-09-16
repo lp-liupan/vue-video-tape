@@ -1,11 +1,11 @@
 <template>
     <div id="app">
-       <vueVideoTape :playerOptions="options" ref="tape"></vueVideoTape>
+       <vueVideoTape :playerOptions="options" ref="tape" @videoData="videoData"></vueVideoTape>
 	   <button @click="image">截图</button>
 	   <button @click="start">开始录像</button>
 	   <button @click="stop">停止录像</button>
 	   <img :src="base64" alt="">
-	   <video :src="rtmp"></video>
+	   <video :src="rtmp" autoplay="true"></video>
     </div>
 </template>
 <script>
@@ -17,7 +17,14 @@ export default  {
         return{
 			base64:'',
 			rtmp:'',
-			options:{},
+			options:{
+				width:600,
+				sources:[
+					{
+						src:'http://hls01open.ys7.com/openlive/426a3ffab5734110bb6955b889241910.m3u8'
+					}
+				]
+			},
 
         }
     },
@@ -37,7 +44,14 @@ export default  {
 
 		//测试录像
 		stop(){
-			this.rtmp = this.$refs.tape.stopCapture();
+			 
+			this.$refs.tape.stopCapture();
+			
+		},
+
+		videoData(videoData){
+			console.log(videoData,'00000000000');
+			this.rtmp = videoData.url;
 		}
 	}
 }

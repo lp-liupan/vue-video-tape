@@ -22,7 +22,7 @@ export default {
         playerOptions:{
             type:Object,
             required:true
-        },
+		},
 
         //视频文件名
         videoFileName:{
@@ -88,7 +88,7 @@ export default {
         },
 
         //停止录像事件
-        stopCapture() {
+       stopCapture() {
 
             //停止录制
             this.recorder.stopRecording(() => {
@@ -100,23 +100,28 @@ export default {
                 //将blob转换为可以供video播放的url
                 let url = URL.createObjectURL(blob);
 
-                //录制完毕后打开表单并播放
-                this.openForm = true;
-                this.videoOrImg = true;
-                this.videoUrl = url;
-
                 //将blob对象转换为文件
                 let fileName = this.videoFileName+".webm";
                 let fileObject = new File([blob], fileName, {
                     type: 'video/webm'
-                });
+				});     
+				
+				console.log('11111111');
+				this.videoData({url,fileObject});
+			});
+			function video2file(){
+				
+			}		
+		},
+		
+		//返回视频文件和url
+		videoData(videoData){
+			this.$emit('videoData',videoData);
+		}
+	},
+	watch:{
 
-                //返回视频文件
-                return fileObject;
-                
-            });
-        },
-    },
+	},
     components:{
         videoPlayer
     }

@@ -1,5 +1,6 @@
 var path = require('path')
 var webpack = require('webpack')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const NODE_ENV = process.env.NODE_ENV;
 
@@ -13,6 +14,39 @@ module.exports = {
 	libraryTarget:'umd',
 	umdNamedDefine: true
 
+  },
+  externals:{
+	recordrtc: {
+        commonjs: 'recordrtc',
+        commonjs2: 'recordrtc',
+        amd: 'recordrtc',
+        root: '_'
+	},
+	'vue-video-player': {
+        commonjs: 'vue-video-player',
+        commonjs2: 'vue-video-player',
+        amd: 'vue-video-player',
+        root: '_'
+	},
+	'videojs-contrib-hls': {
+        commonjs: 'videojs-contrib-hls',
+        commonjs2: 'videojs-contrib-hls',
+        amd: 'videojs-contrib-hls',
+        root: '_'
+	},
+	'video.js/dist/video-js.css': {
+        commonjs: 'video.js/dist/video-js.css',
+        commonjs2: 'video.js/dist/video-js.css',
+        amd: 'video.js/dist/video-js.css',
+        root: '_'
+	},
+	'vue-video-player/src/custom-theme.css': {
+        commonjs: 'vue-video-player/src/custom-theme.css',
+        commonjs2: 'vue-video-player/src/custom-theme.css',
+        amd: 'vue-video-player/src/custom-theme.css',
+        root: '_'
+	},
+	
   },
   module: {
     rules: [
@@ -91,7 +125,10 @@ module.exports = {
   performance: {
     hints: false
   },
-  devtool: '#eval-source-map'
+  devtool: '#eval-source-map',
+  plugins:[
+		// new BundleAnalyzerPlugin()
+  ]
 }
 
 if (process.env.NODE_ENV === 'production') {
@@ -111,6 +148,11 @@ if (process.env.NODE_ENV === 'production') {
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true
-    })
+	}),
+	new webpack.optimize.UglifyJsPlugin({
+		compress: {
+		  warnings: false
+		}
+	  })
   ])
 }
