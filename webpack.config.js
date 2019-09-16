@@ -5,7 +5,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const NODE_ENV = process.env.NODE_ENV;
 
 module.exports = {
-  entry: NODE_ENV == 'development' ? './src/main.js' : './src/tape/index.js',
+  entry: NODE_ENV == 'development' ? './src/main.js' : './src/index.js',
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
@@ -15,39 +15,7 @@ module.exports = {
 	umdNamedDefine: true
 
   },
-  externals:{
-	recordrtc: {
-        commonjs: 'recordrtc',
-        commonjs2: 'recordrtc',
-        amd: 'recordrtc',
-        root: '_'
-	},
-	'vue-video-player': {
-        commonjs: 'vue-video-player',
-        commonjs2: 'vue-video-player',
-        amd: 'vue-video-player',
-        root: '_'
-	},
-	'videojs-contrib-hls': {
-        commonjs: 'videojs-contrib-hls',
-        commonjs2: 'videojs-contrib-hls',
-        amd: 'videojs-contrib-hls',
-        root: '_'
-	},
-	'video.js/dist/video-js.css': {
-        commonjs: 'video.js/dist/video-js.css',
-        commonjs2: 'video.js/dist/video-js.css',
-        amd: 'video.js/dist/video-js.css',
-        root: '_'
-	},
-	'vue-video-player/src/custom-theme.css': {
-        commonjs: 'vue-video-player/src/custom-theme.css',
-        commonjs2: 'vue-video-player/src/custom-theme.css',
-        amd: 'vue-video-player/src/custom-theme.css',
-        root: '_'
-	},
-	
-  },
+  externals:{},
   module: {
     rules: [
       {
@@ -155,4 +123,38 @@ if (process.env.NODE_ENV === 'production') {
 		}
 	  })
   ])
+
+  module.exports.externals = {
+	recordrtc: {
+        commonjs: 'recordrtc',
+        commonjs2: 'recordrtc',
+        amd: 'recordrtc',
+        root: '_'
+	},
+	'vue-video-player': {
+        commonjs: 'vue-video-player',
+        commonjs2: 'vue-video-player',
+        amd: 'vue-video-player',
+        root: '_'
+	},
+	'videojs-contrib-hls': {
+        commonjs: 'videojs-contrib-hls',
+        commonjs2: 'videojs-contrib-hls',
+        amd: 'videojs-contrib-hls',
+        root: '_'
+	},
+	'video.js/dist/video-js.css': {
+        commonjs: 'video.js/dist/video-js.css',
+        commonjs2: 'video.js/dist/video-js.css',
+        amd: 'video.js/dist/video-js.css',
+        root: '_'
+	},
+	'vue-video-player/src/custom-theme.css': {
+        commonjs: 'vue-video-player/src/custom-theme.css',
+        commonjs2: 'vue-video-player/src/custom-theme.css',
+        amd: 'vue-video-player/src/custom-theme.css',
+        root: '_'
+	},
+  }
 }
+

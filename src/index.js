@@ -1,7 +1,7 @@
-import videotape from './tape/index.js';
+import VueVideoTape from './tape/index.js';
 
 const components = [
-	videotape,
+	VueVideoTape,
 ]
 
 const install = function(Vue, opts = {}) {
@@ -17,5 +17,9 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 export default {
   install,
-  videotape,
+  VueVideoTape,
+}
+
+export {
+	VueVideoTape
 }

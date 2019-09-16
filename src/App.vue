@@ -1,6 +1,13 @@
 <template>
     <div id="app">
-       <vueVideoTape :playerOptions="options" ref="tape" @videoData="videoData"></vueVideoTape>
+       <vueVideoTape 
+			:playerOptions="options"
+			ref="tape"
+			:screenshoted = "screenshoted"
+			:startCaptured = "startCaptured"
+			:stopCaptured = "stopCaptured"
+			@imageData="imageData"
+			@videoData="videoData"></vueVideoTape>
 	   <button @click="image">截图</button>
 	   <button @click="start">开始录像</button>
 	   <button @click="stop">停止录像</button>
@@ -25,6 +32,10 @@ export default  {
 					}
 				]
 			},
+			screenshoted:false,
+			startCaptured:false,
+			stopCaptured:false,
+
 
         }
     },
@@ -34,24 +45,32 @@ export default  {
 	methods:{
 		//测试截图
 		image(){
-			this.base64 = this.$refs.tape.screenshot();
+			// this.base64 = this.$refs.tape.screenshot();
+			this.screenshoted = true;
 		},
 
 		//开始录像
 		start(){
-			this.$refs.tape.startCapture();
+			// this.$refs.tape.startCapture();
+			this.startCaptured = true;
 		},
 
 		//测试录像
 		stop(){
 			 
-			this.$refs.tape.stopCapture();
-			
+			// this.$refs.tape.stopCapture();
+			this.stopCaptured = true;
 		},
 
-		videoData(videoData){
-			console.log(videoData,'00000000000');
-			this.rtmp = videoData.url;
+		imageData(base64){
+			this.base64 = base64;
+			this.screenshoted = false;
+		},
+		videoData(url,file){
+			console.log(file,'00000000000');
+			this.rtmp = url;
+			this.startCaptured = false;
+			this.stopCaptured = false;
 		}
 	}
 }

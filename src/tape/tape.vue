@@ -16,7 +16,7 @@ require('vue-video-player/src/custom-theme.css')
 import RecordRTC from 'recordrtc';
 
 export default {
-    name:'tape',
+    name:'VueVideoTape',
     props:{
         //视频配置
         playerOptions:{
@@ -29,7 +29,30 @@ export default {
             type:String,
             required:false,
             default:'录制视频文件'
-        }
+		},
+		
+		//截图
+		screenshoted:{
+			type:Boolean,
+			required:false,
+			default:false,
+		},
+
+		//开始录制
+		startCaptured:{
+			type:Boolean,
+			required:false,
+			default:false,
+		},
+
+		//停止录制
+		stopCaptured:{
+			type:Boolean,
+			required:false,
+			default:false,
+		},
+
+
     },
     data(){
         return{
@@ -60,9 +83,12 @@ export default {
             ctx.drawImage(videoEl, 0, 0, 544, 960, 0, 0, 544, 960);
 
             //把截图保存下来(base64)
-            let image = canvasEl.toDataURL('image/png');
+			let image = canvasEl.toDataURL('image/png');
+			
+			//触发截图成功事件
+			this.imgaeData(image);
 
-            return image;
+            // return image;
 
         },
 
@@ -106,21 +132,36 @@ export default {
                     type: 'video/webm'
 				});     
 				
-				console.log('11111111');
 				this.videoData({url,fileObject});
-			});
-			function video2file(){
-				
-			}		
+			});		
 		},
 		
-		//返回视频文件和url
+		//视频录制成功后触发，返回视频文件和url
 		videoData(videoData){
-			this.$emit('videoData',videoData);
+			this.$emit('videoData',videoData.url,videoData.fileObject);
+		},
+
+		//截图成功后触发，返回图片的base64
+		imgaeData(imageData){
+			this.$emit('imageData',imageData)
 		}
 	},
 	watch:{
-
+		screenshoted(newValue,oldValue){
+			if(newValue){
+				this.screenshot();
+			}
+		},
+		startCaptured(newValue,oldValue){
+			if(newValue){
+				this.startCapture();
+			}
+		},
+		stopCaptured(newValue,oldValue){
+			if(newValue && this.startCaptured){
+				this.stopCapture();
+			}
+		}
 	},
     components:{
         videoPlayer
